@@ -28,5 +28,18 @@ class Empleado extends Authenticatable
         }else {
             return "Sin asignar";
         }
+
+    }
+
+    public function esAdministrador() :bool {
+        // $administradores=['A', 'C', 'J', 'Q'];
+        // return in_array($this->tipo, $administradores);
+        return $this->tipo=='A';
+    }
+
+    public function esOperario() :bool {
+        // $administradores=['A', 'C', 'J', 'Q'];
+        // return in_array($this->tipo, $administradores);
+        return $this->tipo=='O';
     }
 }

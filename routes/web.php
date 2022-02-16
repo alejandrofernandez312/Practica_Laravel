@@ -8,6 +8,7 @@ use App\Http\Controllers\CuotaCRUDController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\IncidenciaController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
@@ -26,13 +27,19 @@ Route::get('/', function(){
     return view('auth.login');
 });
 
+// INCIDENCIA
+Route::resource('incidencia', IncidenciaController::class);
+
+
 // TAREAS
+Route::get('tareas', [TareaCRUDController::class, 'index'])
+->middleware('auth.admin')
+->name('verTareas');
+
 Route::resource('tareas', TareaCRUDController::class)
 ->middleware('auth.admin');
 
-Route::get('tareas', [TareaCRUDController::class, 'index'])
-->middleware('auth.admin')
-->name('tareas');
+
 
 Route::get('tareas/borrar/{id}', [TareaCRUDController::class, 'destroy'])
 ->middleware('auth.admin');

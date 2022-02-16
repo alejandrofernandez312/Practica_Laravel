@@ -23,9 +23,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->tipo == 'A'){
-            return redirect()->route('tareas');
-        }else{
+        if(auth()->user()->esAdministrador()){
+            return redirect()->route("tareas.index");
+        }else if(auth()->user()->esOperario()){
             return "operario";
         }
     }

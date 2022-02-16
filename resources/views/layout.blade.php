@@ -42,19 +42,23 @@
               <li><a href="{{ url('clientes')}}" class="nav-link px-2 text-white">Clientes</a></li>
               <li><a href="{{ url('empleados')}}" class="nav-link px-2 text-white">Empleados</a></li>
               <li><a href="{{ url('cuotas')}}" class="nav-link px-2 text-white">Cuotas</a></li>
-              <li>
-                <a class="nav-link px-2 btn btn-warning text-dark" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                </a>
 
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
-
-                </li>
             </ul>
+
+
+            User: {{ Auth::user()->nombre}} ({{ Auth::user()->descripcionTipo()}}) &nbsp;&nbsp;
+
+            <a class="nav-link px-2 btn btn-warning text-dark" href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+            </a>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+
+
           </div>
         </div>
       </header>
