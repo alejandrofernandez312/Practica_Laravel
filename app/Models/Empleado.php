@@ -21,6 +21,17 @@ class Empleado extends Authenticatable
         "O" => "Operario"
     ];
 
+    protected $fillable = [
+        'nombre',
+        'email',
+        'password',
+        'avatar',
+        'external_id',
+        'external_auth',
+        'tipo',
+        'f_alta',
+    ];
+
     public function descripcionTipo()
     {
         if(isset($this->cargos[$this->tipo])){

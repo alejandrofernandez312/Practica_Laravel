@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ClienteRequest;
+use Illuminate\Http\Request;
 use App\Models\Cliente;
 use App\Models\Pais;
 
@@ -38,10 +38,10 @@ class ClienteCRUDController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Requests\ClienteRequest  $request
+     * @param  \Illuminate\Http\Requests\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ClienteRequest $request)
+    public function store(Request $request)
     {
         //
         // $request->validated();
@@ -91,11 +91,11 @@ class ClienteCRUDController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Requests\ClienteRequest  $request
+     * @param  \Illuminate\Http\Requests\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ClienteRequest $request, $id)
+    public function update(Request $request, $id)
     {
         //
         $request->validate([
@@ -104,7 +104,7 @@ class ClienteCRUDController extends Controller
             'telefono' => 'required',
             'email' => 'required|email',
             'cuenta_corriente' => 'required',
-            'importe' => 'numeric'
+            'importe' => 'required'
         ]);
 
 

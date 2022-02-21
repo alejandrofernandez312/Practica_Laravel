@@ -38,34 +38,45 @@ class IncidenciaController extends Controller
     public function store(Request $request)
     {
 
-        //FILTRADO DE TAREA
-        // $request->validate([
-        //     'nombre' => 'required|min:3|max:255',
-        //     'telefono' => 'required',
-        //     'descripcion' => 'required',
-        //     'email' => 'required|email',
-        //     'direccion' => 'required'
-        // ]);
+        $cliente = Cliente::where('telefono', $request->telefono)->first();
+        if(!$cliente)
+            return back()->withInput();
+        else
+            $id = $cliente->cliente_id;
 
-        $cliente = Cliente::where('cif', $request->cif)->first();
-        if(!$cliente){
-            echo "NO Existe";
-        }else{
-            if($cliente->telefono == $request->telefono){
-                $tarea = new Tarea;
-                $tarea -> nombre = $request->nombre;
-                $tarea -> telefono = $request->telefono;
-                $tarea -> descripcion = $request->descripcion;
-                $tarea -> email = $request->email;
-                $tarea -> direccion = $request->direccion;
-                $tarea -> estado = "P";
-                $tarea -> f_crea = date('Y-m-d');
-                $tarea -> cliente_id = $cliente->cliente_id;
-                $tarea -> save();
-            }else{
-                echo "no coincide";
-            }
-        }
+        //FILTRADO DE TAREA
+        $request->validate([
+            'nombre' => 'required|min:3|max:255',
+            'telefono' => 'required|exists:cliente,telefono,cliente_id,'. $id."'",
+            'cif' => 'required|exists:cliente,cif,cliente_id,'. $id."'",
+            'descripcion' => 'required',
+            'email' => 'required|email',
+            'direccion' => 'required'
+        ]);
+
+
+
+
+        // $cliente = Cliente::where('cif', $request->cif)->first();
+        // if(!$cliente){
+        //     echo "NO Existe";
+
+        // }else{
+        //     if($cliente->telefono == $request->telefono){
+        //         $tarea = new Tarea;
+        //         $tarea -> nombre = $request->nombre;
+        //         $tarea -> telefono = $request->telefono;
+        //         $tarea -> descripcion = $request->descripcion;
+        //         $tarea -> email = $request->email;
+        //         $tarea -> direccion = $request->direccion;
+        //         $tarea -> estado = "P";
+        //         $tarea -> f_crea = date('Y-m-d');
+        //         $tarea -> cliente_id = $cliente->cliente_id;
+        //         $tarea -> save();
+        //     }else{
+        //         echo "no coincide";
+        //     }
+        // }
 
 
 

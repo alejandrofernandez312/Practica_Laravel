@@ -42,7 +42,7 @@ Modificar cuota
                 </p>
 
 
-                <input type="submit" class="btn btn-success" value="Añadir">
+                <input type="submit" class="btn btn-success" value="Modificar">
             </div>
 
 

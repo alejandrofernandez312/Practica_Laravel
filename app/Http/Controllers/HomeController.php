@@ -26,7 +26,7 @@ class HomeController extends Controller
         if(auth()->user()->esAdministrador()){
             return redirect()->route("tareas.index");
         }else if(auth()->user()->esOperario()){
-            return "operario";
+            return redirect()->route("operario.index");
         }
     }
 }

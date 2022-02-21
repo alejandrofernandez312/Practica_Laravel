@@ -4,38 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Cuota {{$cuota->cliente->nombre}} - SiempreColgados</title>
+
+    <style>
+        .table, .table td{
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+
+        .p{
+            border: 1px solid black;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
 
-    <table style="margin: 0 auto;" cellspacing="5" cellpadding="40">
+    <table class="p" cellspacing="40" cellpadding="20">
         <tr>
             <td>
-                <p><b>Concepto: </b>{{$cuota->concepto}}<br>
-                <b>Fecha emisión: </b>{{$cuota->f_emision}}<br>
-                <b>Importe: </b>{{$cuota->importe}}<br>
-                <b>Pagada: </b>{{$cuota->pagada}}<br>
-                <b>Fecha pago: </b>{{$cuota->f_pago}}<br>
-                <b>Notas: </b>{{$cuota->notas}}<br>
-                <b>Nombre cliente: </b>{{$cuota->cliente->nombre}}</p>
-
+                <p>SiempreColgados<br>
+                Av. Santa Marta, s/n<br>
+                21005 Huelva<br>
+                959318164<br>
+                siemprecolgados@gmail.com
             </td>
             <td>
 
 
             </td>
-            <td><p><b>Concepto: </b>{{$cuota->concepto}}<br>
-                <b>Fecha emisión: </b>{{$cuota->f_emision}}<br>
-                <b>Importe: </b>{{$cuota->importe}}<br>
-                <b>Pagada: </b>{{$cuota->pagada}}<br>
-                <b>Fecha pago: </b>{{$cuota->f_pago}}<br>
-                <b>Notas: </b>{{$cuota->notas}}<br>
-                <b>Nombre cliente: </b>{{$cuota->cliente->nombre}}</p></td>
+            <td><p>{{$cuota->cliente->nombre}}<br>
+                {{$cuota->cliente->telefono}}<br>
+                {{$cuota->cliente->email}}</p></td>
         </tr>
-    </table>
+    </table><br>
 
     {{-- DATOS CUOTA --}}
-    <table style="width:100%; border: 1px solid black;">
+    <table class="table">
         <tr>
             <td><p><b>Concepto</b></p></td>
             <td><p><b>Fecha emisión</b></p></td>
@@ -54,6 +60,23 @@
             <td>{{$cuota->notas}}</td>
             <td>{{$cuota->cliente->nombre}}</td>
         </tr>
+    </table><br>
+
+    <table class="table">
+        <tr >
+            <td><b>Importe</b></td>
+            <td>{{$cuota->importe}}</td>
+        </tr>
+        <tr>
+            <td><b>IVA</b></td>
+            <td>{{$cuota->importe * 0.21}}</td>
+        </tr>
+        <tr>
+            <td><b>IMPORTE + IVA</b></td>
+            <td>{{$cuota->importe *1.21}}</td>
+        </tr>
     </table>
+
+
 </body>
 </html>

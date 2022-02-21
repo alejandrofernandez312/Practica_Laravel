@@ -65,14 +65,14 @@ Modificar tarea
 
                     </select>
                 </p>
+                <p>Fecha creación:
+                    <br><input type="text" name="f_creacion" class="form-control" id="f_creacion" value="{{ date('d-m-Y', strtotime($tarea->f_crea)) }}" readonly>
+                </p>
                 <input type="submit" class="btn btn-success" value="Modificar">
             </div>
 
 
             <div class="col-6">
-                <p>Fecha creación:
-                    <br><input type="text" name="f_creacion" class="form-control" id="f_creacion" value="{{ date('d-m-Y', strtotime($tarea->f_crea)) }}" readonly>
-                </p>
                 <p>Fecha realización:
                     <br><input type="date" name="f_realizacion" class="form-control" id="f_realizacion" value="{{ date('Y-m-d', strtotime($tarea->f_rea))}}">
                 </p>
@@ -92,6 +92,17 @@ Modificar tarea
                                 <option value="{{$tarea->cliente->cliente_id}}" selected>{{ $tarea->cliente->nombre }} ({{$tarea->cliente->email}})</option>
                             @else
                                 <option value="{{$cliente->cliente_id}}">{{ $cliente->nombre }} ({{$cliente->email}})</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </p>
+                <p>Empleado:
+                    <br><select name="empleado" class="form-select" id="empleado">
+                        @foreach ($empleados as $empleado)
+                            @if ($empleado->empleado_id == $tarea->empleado->empleado_id)
+                                <option value="{{$tarea->empleado->empleado_id}}" selected>{{ $tarea->empleado->nombre }} ({{$tarea->empleado->email}})</option>
+                            @else
+                                <option value="{{$empleado->empleado_id}}">{{ $empleado->nombre }} ({{$empleado->email}})</option>
                             @endif
                         @endforeach
                     </select>

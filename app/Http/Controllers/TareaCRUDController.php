@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Tarea;
 use App\Models\Cliente;
+use App\Models\Empleado;
 
 class TareaCRUDController extends Controller
 {
@@ -28,7 +29,8 @@ class TareaCRUDController extends Controller
     public function create()
     {
         return view('Tarea.añadirTarea', [
-            'clientes' => Cliente::all()
+            'clientes' => Cliente::all(),
+            'empleados'=> Empleado::all(),
         ]);
     }
 
@@ -63,6 +65,7 @@ class TareaCRUDController extends Controller
         $tarea -> anot_posteriores = $request->anot_posteriores;
         $tarea -> fichero = $request->fichero;
         $tarea -> cliente_id = $request->cliente;
+        $tarea -> empleado_id = $request->empleado;
         $tarea -> save();
 
 
@@ -91,7 +94,8 @@ class TareaCRUDController extends Controller
         //
         return view('Tarea.modificarTarea', [
             'tarea' => Tarea::find($id),
-            'clientes' => Cliente::all()
+            'clientes' => Cliente::all(),
+            'empleados'=> Empleado::all(),
         ]);
     }
 
@@ -128,6 +132,7 @@ class TareaCRUDController extends Controller
         $tarea -> anot_posteriores = $request->anot_posteriores;
         $tarea -> fichero = $request->fichero;
         $tarea -> cliente_id = $request->cliente;
+        $tarea -> empleado_id = $request->empleado;
         $tarea -> save();
 
         return redirect()->route('tareas.index');

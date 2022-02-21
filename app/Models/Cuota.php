@@ -28,4 +28,13 @@ class Cuota extends Model
             return "Sin asignar";
         }
     }
+
+    public function fechaPago()
+    {
+        if($this->f_pago!=null){
+            return date('d-m-Y', strtotime($this->f_pago));
+        }else {
+            return "Sin asignar";
+        }
+    }
 }

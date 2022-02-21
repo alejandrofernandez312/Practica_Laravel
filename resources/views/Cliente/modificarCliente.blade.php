@@ -12,7 +12,7 @@ Modificar cliente
         <a href="{{ route('clientes.index') }}"><input type="button" value="Volver" class="btn btn-primary"></a>
     </p>
 
-    <form action="{{ route('clientes.update', $cliente->cliente_id) }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('clientes.update', $cliente->cliente_id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="container row">

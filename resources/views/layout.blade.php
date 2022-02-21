@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('titulo') - Nosecaen S.L.</title>
+    <title>@yield('titulo') - SiempreColgados</title>
     <script
 			  src="https://code.jquery.com/jquery-3.6.0.js"
 			  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
@@ -33,20 +33,32 @@
         <div class="container">
           <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a href="/" class="d-flex me-4 align-items-center mb-lg-0 text-white text-decoration-none h4">
-              Nosecaen S.L.
+                SiempreColgados
             </a>
 
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-              <li><a href="#" class="nav-link px-2 text-secondary">Inicio</a></li>
-              <li><a href="{{ url('tareas')}}" class="nav-link px-2 text-white">Tareas</a></li>
-              <li><a href="{{ url('clientes')}}" class="nav-link px-2 text-white">Clientes</a></li>
-              <li><a href="{{ url('empleados')}}" class="nav-link px-2 text-white">Empleados</a></li>
-              <li><a href="{{ url('cuotas')}}" class="nav-link px-2 text-white">Cuotas</a></li>
 
-            </ul>
+            @if (auth()->user()->esAdministrador())
 
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="#" class="nav-link px-2 text-secondary">Inicio</a></li>
+                    <li><a href="{{ url('tareas')}}" class="nav-link px-2 text-white">Tareas</a></li>
+                    <li><a href="{{ url('clientes')}}" class="nav-link px-2 text-white">Clientes</a></li>
+                    <li><a href="{{ url('empleados')}}" class="nav-link px-2 text-white">Empleados</a></li>
+                    <li><a href="{{ url('cuotas')}}" class="nav-link px-2 text-white">Cuotas</a></li>
+                </ul>
 
-            User: {{ Auth::user()->nombre}} ({{ Auth::user()->descripcionTipo()}}) &nbsp;&nbsp;
+            @endif
+
+            <a href="" class="nav-link px-2 text-white">
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg>&nbsp;
+
+                User: {{ Auth::user()->nombre}} ({{ Auth::user()->descripcionTipo()}}) &nbsp;&nbsp;
+
+            </a>
 
             <a class="nav-link px-2 btn btn-warning text-dark" href="{{ route('logout') }}"
             onclick="event.preventDefault();

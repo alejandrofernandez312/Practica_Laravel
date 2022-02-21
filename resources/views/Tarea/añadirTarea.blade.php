@@ -53,14 +53,15 @@ Añadir tarea
                         <option value="F">Finalizada</option>
                     </select>
                 </p>
+                <p>Fecha creación:
+                    <br><input type="text" name="f_creacion" class="form-control" id="f_creacion" value="<?= date('d-m-Y') ?>" readonly>
+                </p>
                 <input type="submit" class="btn btn-success" value="Añadir">
             </div>
 
 
             <div class="col-6">
-                <p>Fecha creación:
-                    <br><input type="text" name="f_creacion" class="form-control" id="f_creacion" value="<?= date('d-m-Y') ?>" readonly>
-                </p>
+
 
                 <p>Fecha realización:
                     <br><input type="date" name="f_realizacion" class="form-control" id="f_realizacion">
@@ -94,6 +95,13 @@ Añadir tarea
                     <br><select name="cliente" class="form-select" id="cliente">
                         @foreach ($clientes as $cliente)
                             <option value="{{$cliente->cliente_id}}">{{$cliente->nombre}} ({{$cliente->email}}) </option>
+                        @endforeach
+                    </select>
+                </p>
+                <p>Empleado:
+                    <br><select name="empleado" class="form-select" id="empleado">
+                        @foreach ($empleados as $empleado)
+                            <option value="{{$empleado->empleado_id}}">{{$empleado->nombre}} ({{$empleado->email}}) </option>
                         @endforeach
                     </select>
                 </p>

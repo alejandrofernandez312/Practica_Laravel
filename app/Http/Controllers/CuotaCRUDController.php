@@ -140,7 +140,9 @@ class CuotaCRUDController extends Controller
             $cuota->save();
 
             //Enviar correo
-           MailController::enviarCorreo($cliente->email);
+        //    MailController::enviarCorreo($cliente->email);
+            $email = new MailController;
+            $email->enviarCorreoConPDF($cliente->email, $cuota);
         }
 
         return redirect()->route('cuotas.index');

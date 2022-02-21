@@ -33,7 +33,7 @@ Cuotas
                 <td>{{date('d-m-Y', strtotime($cuota->f_emision))}}</td>
                 <td>{{$cuota->importe}}</td>
                 <td>{{$cuota->opcionesPagado()}}</td>
-                <td>{{date('d-m-Y', strtotime($cuota->f_pago))}}</td>
+                <td>{{$cuota->fechaPago()}}</td>
                 <td>{{$cuota->notas}}</td>
                 <td>{{$cuota->cliente->nombre}}</td>
                 <td>
