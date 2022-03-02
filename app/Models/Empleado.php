@@ -30,6 +30,9 @@ class Empleado extends Authenticatable
         'external_auth',
         'tipo',
         'f_alta',
+        'dni',
+        'telefono',
+        'direccion',
     ];
 
     public function descripcionTipo()

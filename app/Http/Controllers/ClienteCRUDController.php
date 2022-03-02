@@ -44,22 +44,33 @@ class ClienteCRUDController extends Controller
     public function store(Request $request)
     {
         //
-        // $request->validated();
+        $request->validate([
+            'nombre' => 'required|max:255',
+            'cif' => 'required',
+            'telefono' => 'required|numeric',
+            'email' => 'required|email',
+            'cuenta_corriente' => 'required',
+            'importe' => 'required|numeric'
+        ]);
+
+        $clienteExiste = Cliente::where('email', $request->email)->first();
+        if($clienteExiste!=null){
+                return redirect()->back()->withInput($request->all())->with('error','Ese correo ya está asociado a un cliente');
+        }
 
 
-        // $cliente = new Cliente;
-        // $cliente -> nombre = $request->nombre;
-        // $cliente -> cif = $request->cif;
-        // $cliente -> telefono = $request->telefono;
-        // $cliente -> email = $request->email;
-        // $cliente -> cuenta_corriente = $request->cuenta_corriente;
-        // $cliente -> moneda = $request->moneda;
-        // $cliente -> importe = $request->importe;
-        // $cliente -> pais_id = $request->pais;
-        // $cliente -> save();
+        $cliente = new Cliente;
+        $cliente -> nombre = $request->nombre;
+        $cliente -> cif = $request->cif;
+        $cliente -> telefono = $request->telefono;
+        $cliente -> email = $request->email;
+        $cliente -> cuenta_corriente = $request->cuenta_corriente;
+        $cliente -> moneda = $request->moneda;
+        $cliente -> importe = $request->importe;
+        $cliente -> pais_id = $request->pais;
+        $cliente -> save();
 
-        return "Ha pasado la validación";
-        // return redirect()->route('clientes.index');
+        return redirect()->route('clientes.index');
     }
 
     /**
@@ -99,13 +110,21 @@ class ClienteCRUDController extends Controller
     {
         //
         $request->validate([
-            'nombre' => 'required|min:3|max:255',
+            'nombre' => 'required|max:255',
             'cif' => 'required',
-            'telefono' => 'required',
+            'telefono' => 'required|numeric',
             'email' => 'required|email',
             'cuenta_corriente' => 'required',
-            'importe' => 'required'
+            'importe' => 'required|numeric'
         ]);
+
+        $clienteExiste = Cliente::where('email', $request->email)->first();
+        if($clienteExiste!=null){
+            if($id!=$clienteExiste->cliente_id){
+                return redirect()->back()->withInput($request->all())->with('error','Ese correo ya está asociado a un cliente');
+            }
+        }
+
 
 
         $cliente = Cliente::find($id);

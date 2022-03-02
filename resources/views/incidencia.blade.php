@@ -31,7 +31,17 @@
         <form action="{{ route('incidencia.store') }}" method="post" enctype="multipart/form-data">
             @csrf
            <div class="row" style="margin: 0 auto;">
+                @if ($message = Session::get('success'))
+                    <div class="alert alert-success" style="margin: 0 auto;">
+                        <p>{{ $message }}</p>
+                    </div>
+                @elseif ($message = Session::get('error'))
+                    <div class="alert alert-danger" style="margin: 0 auto;">
+                        <p>{{ $message }}</p>
+                    </div>
+                @endif
                 <div class="col-6">
+
 
                     <p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
@@ -80,8 +90,8 @@
                             <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
                           </svg>
                         <label for=""><b>Correo</b></label><br>
-                        <input type="text" name="correo" id="correo" class="form-control" value="{{old('correo')}}">
-                        @error('correo')
+                        <input type="text" name="email" id="correo" class="form-control" value="{{old('email')}}">
+                        @error('email')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </p>

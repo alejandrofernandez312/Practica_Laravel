@@ -66,30 +66,18 @@ Añadir tarea
                 <p>Fecha realización:
                     <br><input type="date" name="f_realizacion" class="form-control" id="f_realizacion">
                 </p>
-                @error('f_realizacion')
-                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                @enderror
 
                 <p>Anotaciones anteriores:
                     <br><input type="text" name="anot_anteriores" class="form-control" id="anot_anteriores" value="{{ old('anot_anteriores') }}">
                 </p>
-                @error('anot_anteriores')
-                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                @enderror
 
                 <p>Anotaciones posteriores:
                     <br><input type="text" name="anot_posteriores" class="form-control" id="anot_posteriores" value="{{ old('anot_posteriores') }}">
                 </p>
-                @error('anot_posteriores')
-                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                @enderror
 
                 <p>Fichero:
                     <br><input type="text" name="fichero" class="form-control" id="fichero" value="{{ old('fichero') }}">
                 </p>
-                @error('fichero')
-                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                @enderror
 
                 <p>Cliente:
                     <br><select name="cliente" class="form-select" id="cliente">

@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Tarea;
-use App\Models\Cliente;
+use App\Models\Empleado;
 
-class IncidenciaController extends Controller
+class EmpleadosJSController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +15,11 @@ class IncidenciaController extends Controller
     public function index()
     {
         //
-        return view('incidencia');
+        $empleados = Empleado::all();
+
+        return view('JS_Empleados.empleadosJS', [
+            'empleados' => $empleados
+        ]);
     }
 
     /**
@@ -37,44 +40,28 @@ class IncidenciaController extends Controller
      */
     public function store(Request $request)
     {
-         //FILTRADO DE TAREA
-         $request->validate([
+        $request->validate([
             'nombre' => 'required|min:3|max:255',
-            'telefono' => 'required',
-            'cif' => 'required',
-            'descripcion' => 'required',
+            'password' => 'required',
+            'dni' => 'required',
             'email' => 'required|email',
+            'telefono' => 'required|numeric',
             'direccion' => 'required'
         ]);
 
-        $checktlf=Cliente::where('telefono',$request->telefono)->get();
-        $checkcif=Cliente::where('cif',$request->cif)->get();
-        if($checktlf->count()==1&&$checkcif->count()==1){
-            $id = $checkcif[0]->cliente_id;
 
-        //Formulario Tareas cliente;
-        $tarea = new Tarea;
-        $tarea->nombre = $request->nombre;
-        $tarea->cliente_id = $id;
-        $tarea->telefono = $request->telefono;
-        $tarea->email = $request->email;
-        $tarea->estado = "P";
-        $tarea->f_crea = date("Y-m-d");
-        $tarea->direccion = $request->direccion;
-        $tarea->descripcion = $request->descripcion;
-        $tarea->save();
-        return redirect()->route('incidencia.index')
-            ->with('success','Se ha creado su incidencia');
-        }else{
-            return back()->withInput($request->all())
-            ->with('error','El dni y el teléfono no coinciden');
-        }
+        $empleado = Empleado::updateOrCreate(['empleado_id' => $request->empleado_id], [
+            'nombre' => $request->nombre,
+            'password' => bcrypt($request->password),
+            'dni' => $request->dni,
+            'email' => $request->email,
+            'telefono' => $request->telefono,
+            'direccion' => $request->direccion,
+            'f_alta' => Date('Y-m-d'),
+            'tipo' => $request->tipo
+        ]);
 
-
-
-
-
-
+        return response()->json(['code' => 200, 'message' => 'Empleado Created successfully', 'data' => $empleado], 200);
     }
 
     /**
@@ -86,6 +73,9 @@ class IncidenciaController extends Controller
     public function show($id)
     {
         //
+        $empleado = Empleado::find($id);
+
+        return response()->json($empleado);
     }
 
     /**
@@ -120,5 +110,6 @@ class IncidenciaController extends Controller
     public function destroy($id)
     {
         //
+        Empleado::find($id)->delete();
     }
 }

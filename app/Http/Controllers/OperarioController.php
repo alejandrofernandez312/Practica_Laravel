@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tarea;
+use App\Models\Cliente;
+use App\Models\Empleado;
 
 class OperarioController extends Controller
 {
@@ -15,8 +17,10 @@ class OperarioController extends Controller
     public function index()
     {
         //
-        return view('operario', [
-            'tareas' => Tarea::where('empleado_id', auth()->user()->empleado_id)->paginate(4)
+        return view('Operario.tareasOP', [
+            'tareas' => Tarea::where('empleado_id', auth()->user()->empleado_id)
+                ->where('estado', 'P')
+                ->paginate(4)
         ]);
         // dd(auth()->user());
     }
@@ -62,6 +66,11 @@ class OperarioController extends Controller
     public function edit($id)
     {
         //
+        return view('Operario.modificarTareaOP', [
+            'tarea' => Tarea::find($id),
+            'clientes' => Cliente::all(),
+            'empleados'=> Empleado::all(),
+        ]);
     }
 
     /**
@@ -74,6 +83,24 @@ class OperarioController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'nombre' => 'required|min:3|max:255',
+            'telefono' => 'required',
+            'descripcion' => 'required',
+            'email' => 'required|email', //Preguntar lo de unique:tarea
+            'direccion' => 'required'
+        ]);
+
+
+        $tarea = Tarea::find($id);
+        $tarea -> estado = $request->estado;
+        $tarea -> anot_anteriores = $request->anot_anteriores;
+        $tarea -> anot_anteriores = $request->anot_anteriores;
+        $tarea -> anot_posteriores = $request->anot_posteriores;
+        $tarea -> fichero = $request->fichero;
+        $tarea -> save();
+
+        return redirect()->route('operario.index');
     }
 
     /**

@@ -18,7 +18,7 @@ class CreateTareaTable extends Migration
             $table->string('nombre', 60);
             $table->string('telefono', 12);
             $table->string('descripcion');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('direccion');
             $table->char('estado', 1); // C -> CANCELADA; F -> FINALIZADA; P-> PENDIENTE;
             $table->date('f_crea');

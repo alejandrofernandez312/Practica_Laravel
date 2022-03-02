@@ -16,7 +16,6 @@ Empleados
         <thead>
             <tr>
                 <td><b>Nombre</b></td>
-                <td><b>Password</b></td>
                 <td><b>DNI</b></td>
                 <td><b>Email</b></td>
                 <td><b>Teléfono</b></td>
@@ -30,7 +29,6 @@ Empleados
             @foreach ($empleados as $empleado)
             <tr id={{$empleado->empleado_id}}>
                 <td>{{$empleado->nombre}}</td>
-                <td>{{$empleado->password}}</td>
                 <td>{{$empleado->dni}}</td>
                 <td>{{$empleado->email}}</td>
                 <td>{{$empleado->telefono}}</td>

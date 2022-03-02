@@ -47,8 +47,7 @@ class CuotaCRUDController extends Controller
         //
         $request->validate([
             'concepto' => 'required|max:255',
-            'importe' => 'numeric',
-            'notas' => 'required'
+            'importe' => 'numeric'
         ]);
 
 
@@ -62,6 +61,14 @@ class CuotaCRUDController extends Controller
         $cuota -> cliente_id = $request->cliente;
         $cuota -> save();
 
+
+        $json = file_get_contents('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/eur.json');
+
+        // $data = json_decode($json,true);
+        // $precio = round($data['eur'][strtolower($cuota->cliente->moneda)]* $cuota->importe,2);
+
+        // $email = new MailController;
+        // $email->enviarCorreoConPDF($cuota->cliente->email, $cuota);
 
         return redirect()->route('cuotas.index');
     }
@@ -166,8 +173,17 @@ class CuotaCRUDController extends Controller
     public function generarPDF($id){
         $cuota=Cuota::find($id);
         $pdf = app('dompdf.wrapper');
-        $pdf->loadView('plantillaPDF', compact('cuota'));
+
+
+        $json = file_get_contents('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/eur.json');
+
+        $data = json_decode($json,true);
+        $precio = round($data['eur'][strtolower($cuota->cliente->moneda)]* $cuota->importe,2);
+
+        $pdf->loadView('plantillaPDF', compact('cuota'), compact('precio'));
 
         return $pdf->stream('cuota.pdf');
+
+
     }
 }

@@ -11,6 +11,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\IncidenciaController;
 use App\Http\Controllers\OperarioController;
+use App\Http\Controllers\MiPerfilController;
+use App\Http\Controllers\TareasNoAsignadasController;
+use App\Http\Controllers\EmpleadosJSController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Laravel\Socialite\Facades\Socialite;
@@ -34,14 +37,22 @@ Route::get('/', function(){
 // INCIDENCIA
 Route::resource('incidencia', IncidenciaController::class);
 
+// CAMBIAR DATOS PERFIL
+Route::resource('perfil', MiPerfilController::class);
+
 // OPERARIO
 Route::resource('operario', OperarioController::class);
 
+//PERMISO DENEGADO
+Route::get('denegado', function(){
+    return view('denegado');
+});
 
 // TAREAS
 Route::get('tareas', [TareaCRUDController::class, 'index'])
 ->middleware('auth.admin')
 ->name('verTareas');
+
 
 Route::resource('tareas', TareaCRUDController::class)
 ->middleware('auth.admin');
@@ -49,6 +60,11 @@ Route::resource('tareas', TareaCRUDController::class)
 
 
 Route::get('tareas/borrar/{id}', [TareaCRUDController::class, 'destroy'])
+->middleware('auth.admin');
+
+
+//TAREAS NO ASIGNADAS
+Route::resource('tareasNoAsignadas', TareasNoAsignadasController::class)
 ->middleware('auth.admin');
 
 
@@ -124,6 +140,49 @@ Route::get('/google-callback', function () {
 
     // $user->token
 });
+
+//LOGIN CON GITHUB
+
+Route::get('/login-github', function () {
+    return Socialite::driver('github')->redirect();
+});
+
+Route::get('/github-callback', function () {
+    $user = Socialite::driver('github')->user();
+
+
+    $userExists = Empleado::where('external_id', $user->id)->where('external_auth', 'github')->first();
+
+    if($userExists){
+        Auth::login($userExists);
+    }else{
+        $userNew = Empleado::create([
+            'nombre' => $user->nickname,
+            'email' => $user->email,
+            'avatar' => $user->avatar,
+            'tipo' => 'O',
+            'f_alta' => date('Y-m-d'),
+            'external_id' => $user->id,
+            'external_auth' => 'github',
+            'remember_token' => $user->token
+        ]);
+
+        Auth::login($userNew);
+    }
+
+    return redirect()->route('operario.index');
+
+
+    // $user->token
+});
+
+
+//CRUD EMPLEADOS CON JAVASCRIPT Y DATATABLE
+
+Route::resource('empleadosJS', EmpleadosJSController::class)
+->middleware('auth.admin');
+
+
 
 
 

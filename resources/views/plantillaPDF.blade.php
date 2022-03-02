@@ -56,7 +56,7 @@
             <td>{{$cuota->f_emision}}</td>
             <td>{{$cuota->importe}}</td>
             <td>{{$cuota->opcionesPagado()}}</td>
-            <td>{{date('d-m-Y', strtotime($cuota->f_pago))}}</td>
+            <td>{{$cuota->fechaPago()}}</td>
             <td>{{$cuota->notas}}</td>
             <td>{{$cuota->cliente->nombre}}</td>
         </tr>
@@ -69,13 +69,15 @@
         </tr>
         <tr>
             <td><b>IVA</b></td>
-            <td>{{$cuota->importe * 0.21}}</td>
+            <td>{{round($cuota->importe * 0.21, 2)}}</td>
         </tr>
         <tr>
             <td><b>IMPORTE + IVA</b></td>
-            <td>{{$cuota->importe *1.21}}</td>
+            <td>{{round($cuota->importe *1.21, 2)}}</td>
         </tr>
     </table>
+
+    <p>Precio {{$precio }} <b>{{$cuota->cliente->moneda}}</b></p>
 
 
 </body>

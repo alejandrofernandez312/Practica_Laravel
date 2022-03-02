@@ -43,7 +43,7 @@ class EmpleadoCRUDController extends Controller
     {
         //
         $request->validate([
-            'nombre' => 'required|min:3|max:255',
+            'nombre' => 'required|max:255',
             'password' => 'required',
             'dni' => 'required|unique:empleado',
             'email' => 'required|email|unique:empleado',
@@ -103,13 +103,27 @@ class EmpleadoCRUDController extends Controller
     {
         //
         $request->validate([
-            'nombre' => 'required|min:3|max:255',
+            'nombre' => 'required|max:255',
             'password' => 'required',
             'dni' => 'required',
             'email' => 'required|email',
             'telefono' => 'required|numeric',
             'direccion' => 'required'
         ]);
+
+        $empleadoExiste = Empleado::where('email', $request->email)->first();
+        if($empleadoExiste!=null){
+            if($id!=$empleadoExiste->empleado_id){
+                return redirect()->back()->withInput($request->all())->with('error','Ese correo ya está asociado a un cliente');
+            }
+        }
+
+        $empleadoExiste = Empleado::where('dni', $request->dni)->first();
+        if($empleadoExiste!=null){
+            if($id!=$empleadoExiste->empleado_id){
+                return redirect()->back()->withInput($request->all())->with('error','Ese DNI ya está asociado a un cliente');
+            }
+        }
 
 
         $empleado = Empleado::find($id);

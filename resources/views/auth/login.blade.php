@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header text-center"><h3>Login</h3></div>
+    <div class="row justify-content-center ">
+        <div class="col-md-8 ">
+            <div class="card ">
+                <div class="card-header text-center text-white bg-dark"><h3>Login</h3></div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
@@ -39,6 +39,7 @@
                             </div>
                         </div>
 
+
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -49,8 +50,21 @@
                                     <input type="button" value="Accede con Google" class="btn btn-success">
                                 </a>
 
+                                <a href="{{url('/login-github')}}">
+                                    <input type="button" value="Accede con Github" class="btn btn-dark">
+                                </a>
+
+                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                   ¿Has olvidado tu contraseña?
+                                </a>
+
                             </div>
                         </div>
+
+                        <div class="form-group row mb-4">
+
+                        </div>
+
                     </form>
                 </div>
             </div>

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Tarea;
-use App\Models\Cliente;
+use Illuminate\Support\Facades\Crypt;
+use App\Models\Empleado;
 
-class IncidenciaController extends Controller
+class MiPerfilController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class IncidenciaController extends Controller
     public function index()
     {
         //
-        return view('incidencia');
+        return view('cambiarDatos');
     }
 
     /**
@@ -37,43 +37,7 @@ class IncidenciaController extends Controller
      */
     public function store(Request $request)
     {
-         //FILTRADO DE TAREA
-         $request->validate([
-            'nombre' => 'required|min:3|max:255',
-            'telefono' => 'required',
-            'cif' => 'required',
-            'descripcion' => 'required',
-            'email' => 'required|email',
-            'direccion' => 'required'
-        ]);
-
-        $checktlf=Cliente::where('telefono',$request->telefono)->get();
-        $checkcif=Cliente::where('cif',$request->cif)->get();
-        if($checktlf->count()==1&&$checkcif->count()==1){
-            $id = $checkcif[0]->cliente_id;
-
-        //Formulario Tareas cliente;
-        $tarea = new Tarea;
-        $tarea->nombre = $request->nombre;
-        $tarea->cliente_id = $id;
-        $tarea->telefono = $request->telefono;
-        $tarea->email = $request->email;
-        $tarea->estado = "P";
-        $tarea->f_crea = date("Y-m-d");
-        $tarea->direccion = $request->direccion;
-        $tarea->descripcion = $request->descripcion;
-        $tarea->save();
-        return redirect()->route('incidencia.index')
-            ->with('success','Se ha creado su incidencia');
-        }else{
-            return back()->withInput($request->all())
-            ->with('error','El dni y el teléfono no coinciden');
-        }
-
-
-
-
-
+        //
 
     }
 
@@ -109,6 +73,21 @@ class IncidenciaController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'password' => 'required|min:4'
+        ]);
+        $empleado = Empleado::find($id);
+        $empleado->email = $request->email;
+        $empleado->password = bcrypt($request->password);
+        $empleado->save();
+
+        if(auth()->user()->tipo=='A'){
+            return redirect()->route('tareas.index');
+        }else{
+            return redirect()->route('operario.index');
+        }
+
+
     }
 
     /**

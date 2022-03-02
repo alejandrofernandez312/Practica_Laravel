@@ -36,4 +36,31 @@ class Tarea extends Model
             return "Sin asignar";
         }
     }
+
+    public function asignarEmpleado()
+    {
+        if($this->empleado!=null){
+            return $this->empleado->nombre;
+        }else {
+            return "Sin asignar";
+        }
+    }
+
+    public function fechaRealizacion()
+    {
+        if($this->f_rea!=null){
+            return date('d-m-Y', strtotime($this->f_rea));
+        }else {
+            return "Sin asignar";
+        }
+    }
+
+    public function obtenerFechaRealizacion()
+    {
+        if($this->f_rea!=null){
+            return date('d-m-Y', strtotime($this->f_rea));
+        }else {
+            return null;
+        }
+    }
 }

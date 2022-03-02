@@ -20,9 +20,10 @@ class AdminAuth
             if(auth()->user()->esAdministrador()){
                 return $next($request);
             }
-
+            return redirect()->to('denegado');
         }
         return redirect()->to('/');
+
 
     }
 }

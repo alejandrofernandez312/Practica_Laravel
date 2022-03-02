@@ -2,17 +2,17 @@
 
 @section('titulo')
 
-Modificar tarea
+Modificar tarea no asignada
 
 @endsection
 
 @section('contenido')
 
     <p>
-        <a href="{{ route('tareas.index') }}"><input type="button" value="Volver" class="btn btn-primary" ></a>
+        <a href="{{ route('tareasNoAsignadas.index') }}"><input type="button" value="Volver" class="btn btn-primary" ></a>
     </p>
 
-    <form action="{{ route('tareas.update', $tarea->tarea_id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('tareasNoAsignadas.update', $tarea->tarea_id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="container row">
@@ -24,25 +24,25 @@ Modificar tarea
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
                 <p>Teléfono:
-                    <br><input type="text" name="telefono" class="form-control" id="telefono" value="{{ old('telefono', $tarea->telefono) }}">
+                    <br><input type="text" name="telefono" class="form-control" id="telefono" value="{{ $tarea->telefono }}">
                 </p>
                 @error('telefono')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
                 <p>Descripción:
-                    <br><input type="text" name="descripcion" class="form-control" id="descripcion" value="{{old('descripcion', $tarea->descripcion) }}">
+                    <br><input type="text" name="descripcion" class="form-control" id="descripcion" value="{{ $tarea->descripcion }}">
                 </p>
                 @error('descripcion')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
                 <p>Email:
-                    <br><input type="text" name="email" class="form-control" id="email" value="{{ old('email', $tarea->email) }}">
+                    <br><input type="text" name="email" class="form-control" id="email" value="{{ $tarea->email }}">
                 </p>
                 @error('email')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
                 <p>Dirección:
-                    <br><input type="text" name="direccion" class="form-control" id="direccion" value="{{ old('direccion', $tarea->direccion) }}">
+                    <br><input type="text" name="direccion" class="form-control" id="direccion" value="{{ $tarea->direccion }}">
                 </p>
                 @error('direccion')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -74,16 +74,16 @@ Modificar tarea
 
             <div class="col-6">
                 <p>Fecha realización:
-                    <br><input type="date" name="f_realizacion" class="form-control" id="f_realizacion" value="{{ $tarea->obtenerFechaRealizacion()}}">
+                    <br><input type="date" name="f_realizacion" class="form-control" id="f_realizacion" value="{{ date('Y-m-d', strtotime($tarea->f_rea))}}">
                 </p>
                 <p>Anotaciones anteriores:
-                    <br><input type="text" name="anot_anteriores" class="form-control" id="anot_anteriores" value="{{ old('anot_anteriores', $tarea->anot_anteriores) }}">
+                    <br><input type="text" name="anot_anteriores" class="form-control" id="anot_anteriores" value="{{ $tarea->anot_anteriores }}">
                 </p>
                 <p>Anotaciones posteriores:
-                    <br><input type="text" name="anot_posteriores" class="form-control" id="anot_posteriores" value="{{ old('anot_posteriores', $tarea->anot_posteriores) }}">
+                    <br><input type="text" name="anot_posteriores" class="form-control" id="anot_posteriores" value="{{ $tarea->anot_posteriores }}">
                 </p>
                 <p>Fichero:
-                    <br><input type="text" name="fichero" class="form-control" id="fichero" value="{{ old('fichero', $tarea->fichero) }}">
+                    <br><input type="text" name="fichero" class="form-control" id="fichero" value="{{ $tarea->fichero }}">
                 </p>
                 <p>Cliente:
                     <br><select name="cliente" class="form-select" id="cliente">
