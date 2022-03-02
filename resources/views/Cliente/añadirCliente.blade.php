@@ -8,6 +8,8 @@ Añadir cliente
 
 @section('contenido')
 
+    <h1 class="text-center">Añadir cliente</h1>
+
     <p>
         <a href="{{ route('clientes.index') }}"><input type="button" value="Volver" class="btn btn-primary"></a>
     </p>

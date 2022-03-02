@@ -8,6 +8,8 @@ Modificar empleado
 
 @section('contenido')
 
+<h1 class="text-center">Modificar empleado</h1>
+
     <p>
         <a href="{{ route('empleados.index') }}"><input type="button" value="Volver" class="btn btn-primary"></a>
     </p>

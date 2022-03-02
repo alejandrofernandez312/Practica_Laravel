@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cliente;
 use App\Models\Pais;
+use App\Models\Cuota;
 
 
 class ClienteCRUDController extends Controller
@@ -82,6 +83,10 @@ class ClienteCRUDController extends Controller
     public function show($id)
     {
         //
+        $cliente = Cliente::find($id);
+        return view('Cliente.verificarBorrarCliente', [
+            'cliente' => $cliente
+        ]);
     }
 
     /**
@@ -150,9 +155,14 @@ class ClienteCRUDController extends Controller
     public function destroy($id)
     {
         //
+        $cuotas = Cuota::where('cliente_id', $id)->get();
+        foreach($cuotas as $cuota){
+            $cuota->delete();
+        }
+
         $cliente = Cliente::find($id);
 
         $cliente->delete();
-        return redirect('/clientes');
+        return redirect()->route('clientes.index');
     }
 }

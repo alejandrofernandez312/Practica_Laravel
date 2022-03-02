@@ -8,6 +8,8 @@ Modificar tarea no asignada
 
 @section('contenido')
 
+<h1 class="text-center">Modificar tarea no asignada</h1>
+
     <p>
         <a href="{{ route('tareasNoAsignadas.index') }}"><input type="button" value="Volver" class="btn btn-primary" ></a>
     </p>
@@ -74,7 +76,7 @@ Modificar tarea no asignada
 
             <div class="col-6">
                 <p>Fecha realización:
-                    <br><input type="date" name="f_realizacion" class="form-control" id="f_realizacion" value="{{ date('Y-m-d', strtotime($tarea->f_rea))}}">
+                    <br><input type="date" name="f_realizacion" class="form-control" id="f_realizacion" value="{{ $tarea->obtenerFechaRealizacion() }}">
                 </p>
                 <p>Anotaciones anteriores:
                     <br><input type="text" name="anot_anteriores" class="form-control" id="anot_anteriores" value="{{ $tarea->anot_anteriores }}">

@@ -8,6 +8,8 @@ Modificar tarea
 
 @section('contenido')
 
+<h1 class="text-center">Modificar tarea (operario)</h1>
+
     <p>
         <a href="{{ route('operario.index') }}"><input type="button" value="Volver" class="btn btn-primary" ></a>
     </p>

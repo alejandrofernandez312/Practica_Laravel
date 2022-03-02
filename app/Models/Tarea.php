@@ -58,7 +58,7 @@ class Tarea extends Model
     public function obtenerFechaRealizacion()
     {
         if($this->f_rea!=null){
-            return date('d-m-Y', strtotime($this->f_rea));
+            return $this->f_rea;
         }else {
             return null;
         }

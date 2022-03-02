@@ -76,6 +76,14 @@ class MiPerfilController extends Controller
         $request->validate([
             'password' => 'required|min:4'
         ]);
+
+        $empleadoExiste = Empleado::where('email', $request->email)->first();
+        if($empleadoExiste!=null){
+            if($id!=$empleadoExiste->empleado_id){
+                return redirect()->back()->withInput($request->all())->with('error','Ese correo ya está asociado a un empleado');
+            }
+        }
+
         $empleado = Empleado::find($id);
         $empleado->email = $request->email;
         $empleado->password = bcrypt($request->password);

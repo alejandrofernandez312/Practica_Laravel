@@ -82,6 +82,10 @@ class CuotaCRUDController extends Controller
     public function show($id)
     {
         //
+        $cuota = Cuota::find($id);
+        return view('Cuota.verificarBorrarCuota', [
+            'cuota' => $cuota
+        ]);
     }
 
     /**
@@ -148,8 +152,8 @@ class CuotaCRUDController extends Controller
 
             //Enviar correo
         //    MailController::enviarCorreo($cliente->email);
-            $email = new MailController;
-            $email->enviarCorreoConPDF($cliente->email, $cuota);
+            // $email = new MailController;
+            // $email->enviarCorreoConPDF($cliente->email, $cuota);
         }
 
         return redirect()->route('cuotas.index');

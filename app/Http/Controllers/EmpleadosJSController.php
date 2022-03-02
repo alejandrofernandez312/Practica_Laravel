@@ -41,7 +41,7 @@ class EmpleadosJSController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|min:3|max:255',
+            'nombre' => 'required|max:255',
             'password' => 'required',
             'dni' => 'required',
             'email' => 'required|email',

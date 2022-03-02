@@ -15,11 +15,16 @@ Mi perfil
     @method('PUT')
     <div class="container col-md-4">
         <p>Correo:
-            <br><input type="text" name="email" class="form-control" id="email" value="{{old('email',auth()->user()->email)}}" readonly>
+            <br><input type="text" name="email" class="form-control" id="email" value="{{old('email',auth()->user()->email)}}">
         </p>
         @error('email')
                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
         @enderror
+        @if ($message = Session::get('error'))
+            <div class="alert alert-danger" style="margin: 0 auto;">
+                <p>{{ $message }}</p>
+            </div>
+        @endif
         <p>Contraseña:
             <br><input type="password" name="password" class="form-control" id="password" value="">
         </p>

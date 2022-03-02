@@ -17,7 +17,7 @@ class TareaCRUDController extends Controller
     public function index()
     {
         return view('Tarea.tareas', [
-            'tareas' => Tarea::paginate(4)
+            'tareas' => Tarea::where('empleado_id','!=',null)->paginate(4)
         ]);
     }
 
@@ -47,7 +47,7 @@ class TareaCRUDController extends Controller
             'nombre' => 'required|max:255',
             'telefono' => 'required|numeric',
             'descripcion' => 'required',
-            'email' => 'required|email|unique:tarea',
+            'email' => 'required|email',
             'direccion' => 'required'
         ]);
 
@@ -82,6 +82,10 @@ class TareaCRUDController extends Controller
     public function show($id)
     {
         //
+        $tarea = Tarea::find($id);
+        return view('Tarea.verificarBorrarTarea', [
+            'tarea' => $tarea
+        ]);
     }
 
     /**
@@ -115,7 +119,7 @@ class TareaCRUDController extends Controller
             'nombre' => 'required|max:255',
             'telefono' => 'required|numeric',
             'descripcion' => 'required',
-            'email' => 'required|email|unique:tarea',
+            'email' => 'required|email',
             'direccion' => 'required'
         ]);
 

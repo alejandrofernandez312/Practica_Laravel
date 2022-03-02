@@ -8,6 +8,8 @@ Tareas operario
 
 @section('contenido')
 
+<h1 class="text-center">Tareas (operario)</h1>
+
         <table id="tablaOperario" class="table">
             <thead>
                 <tr>

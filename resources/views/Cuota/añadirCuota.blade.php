@@ -8,6 +8,8 @@ Añadir cuota
 
 @section('contenido')
 
+<h1 class="text-center">Añadir cuota</h1>
+
     <p>
         <a href="{{ route('cuotas.index') }}"><input type="button" value="Volver" class="btn btn-primary"></a>
     </p>

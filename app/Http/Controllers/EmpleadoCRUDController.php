@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Empleado;
+use App\Models\Tarea;
 
 class EmpleadoCRUDController extends Controller
 {
@@ -76,6 +77,10 @@ class EmpleadoCRUDController extends Controller
     public function show($id)
     {
         //
+        $empleado = Empleado::find($id);
+        return view('Empleado.verificarBorrarEmpleado', [
+            'empleado' => $empleado
+        ]);
     }
 
     /**
@@ -150,9 +155,14 @@ class EmpleadoCRUDController extends Controller
     public function destroy($id)
     {
         //
+        $tareas = Tarea::where('empleado_id', $id)->get();
+        foreach($tareas as $tarea){
+            $tarea->delete();
+        }
+
         $empleado = Empleado::find($id);
 
         $empleado->delete();
-        return redirect('/empleados');
+        return redirect()->route('empleados.index');
     }
 }

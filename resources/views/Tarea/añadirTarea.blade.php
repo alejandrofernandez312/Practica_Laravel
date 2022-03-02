@@ -8,6 +8,8 @@ Añadir tarea
 
 @section('contenido')
 
+<h1 class="text-center">Añadir tarea</h1>
+
     <p>
         <a href="{{ route('tareas.index') }}"><input type="button" value="Volver" class="btn btn-primary" id="btAñadirTarea"></a>
     </p>

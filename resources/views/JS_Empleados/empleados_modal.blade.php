@@ -21,7 +21,7 @@
                     <div class="form-group">
                         <label for="password" class="col-sm-2">Password</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="password" name="password" placeholder="Enter Password">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
                             <span id="passwordError" class="alert-message"></span>
                         </div>
                     </div>

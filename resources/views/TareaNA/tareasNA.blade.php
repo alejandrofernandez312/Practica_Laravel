@@ -8,6 +8,8 @@ Tareas no asignadas
 
 @section('contenido')
 
+<h1 class="text-center">Tareas no asignadas</h1>
+
 
     <table id="tablaTareas" class="table">
         <thead>

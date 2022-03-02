@@ -8,6 +8,8 @@ Empleados JS
 
 @section('contenido')
 
+<h1 class="text-center">Empleados (Con JS)</h1>
+
 <p>
     <input type="button" value="Añadir empleado" class="btn btn-primary " id="btAñadirTarea" onclick="addEmpleado()">
 </p>

@@ -78,6 +78,7 @@ Route::get('clientes/borrar/{id}', [ClienteCRUDController::class, 'destroy'])
 
 
 
+
 //EMPLEADOS
 Route::resource('empleados', EmpleadoCRUDController::class)
 ->middleware('auth.admin');
@@ -106,7 +107,8 @@ Route::get('cuotas/insertarCuotasMensuales', [CuotaCRUDController::class, 'inser
 Route::resource('cuotas', CuotaCRUDController::class)
 ->middleware('auth.admin');
 
-Route::get('cuotas/borrar/{id}', [CuotaCRUDController::class, 'destroy']);
+Route::get('cuotas/borrar/{id}', [CuotaCRUDController::class, 'destroy'])
+->middleware('auth.admin');;
 
 //GOOGLE
 
