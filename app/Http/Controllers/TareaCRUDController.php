@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Tarea;
 use App\Models\Cliente;
 use App\Models\Empleado;
+use App\Models\Tarea;
+use Illuminate\Http\Request;
 
 class TareaCRUDController extends Controller
 {
@@ -17,7 +17,7 @@ class TareaCRUDController extends Controller
     public function index()
     {
         return view('Tarea.tareas', [
-            'tareas' => Tarea::where('empleado_id','!=',null)->paginate(4)
+            'tareas' => Tarea::where('empleado_id', '!=', null)->paginate(4),
         ]);
     }
 
@@ -30,7 +30,7 @@ class TareaCRUDController extends Controller
     {
         return view('Tarea.añadirTarea', [
             'clientes' => Cliente::all(),
-            'empleados'=> Empleado::all(),
+            'empleados' => Empleado::all(),
         ]);
     }
 
@@ -48,27 +48,24 @@ class TareaCRUDController extends Controller
             'telefono' => 'required|numeric',
             'descripcion' => 'required',
             'email' => 'required|email',
-            'direccion' => 'required'
+            'direccion' => 'required',
         ]);
 
-
-
         $tarea = new Tarea;
-        $tarea -> nombre = $request->nombre;
-        $tarea -> telefono = $request->telefono;
-        $tarea -> descripcion = $request->descripcion;
-        $tarea -> email = $request->email;
-        $tarea -> direccion = $request->direccion;
-        $tarea -> estado = $request->estado;
-        $tarea -> f_crea = date('Y-m-d', strtotime($request->f_creacion));
-        $tarea -> f_rea = date('Y-m-d', strtotime($request->f_realizacion));
-        $tarea -> anot_anteriores = $request->anot_anteriores;
-        $tarea -> anot_posteriores = $request->anot_posteriores;
-        $tarea -> fichero = $request->fichero;
-        $tarea -> cliente_id = $request->cliente;
-        $tarea -> empleado_id = $request->empleado;
-        $tarea -> save();
-
+        $tarea->nombre = $request->nombre;
+        $tarea->telefono = $request->telefono;
+        $tarea->descripcion = $request->descripcion;
+        $tarea->email = $request->email;
+        $tarea->direccion = $request->direccion;
+        $tarea->estado = $request->estado;
+        $tarea->f_crea = date('Y-m-d', strtotime($request->f_creacion));
+        $tarea->f_rea = date('Y-m-d', strtotime($request->f_realizacion));
+        $tarea->anot_anteriores = $request->anot_anteriores;
+        $tarea->anot_posteriores = $request->anot_posteriores;
+        $tarea->fichero = $request->fichero;
+        $tarea->cliente_id = $request->cliente;
+        $tarea->empleado_id = $request->empleado;
+        $tarea->save();
 
         return redirect()->route('tareas.index');
     }
@@ -84,7 +81,7 @@ class TareaCRUDController extends Controller
         //
         $tarea = Tarea::find($id);
         return view('Tarea.verificarBorrarTarea', [
-            'tarea' => $tarea
+            'tarea' => $tarea,
         ]);
     }
 
@@ -100,7 +97,7 @@ class TareaCRUDController extends Controller
         return view('Tarea.modificarTarea', [
             'tarea' => Tarea::find($id),
             'clientes' => Cliente::all(),
-            'empleados'=> Empleado::all(),
+            'empleados' => Empleado::all(),
         ]);
     }
 
@@ -120,31 +117,29 @@ class TareaCRUDController extends Controller
             'telefono' => 'required|numeric',
             'descripcion' => 'required',
             'email' => 'required|email',
-            'direccion' => 'required'
+            'direccion' => 'required',
         ]);
 
-
-
         $tarea = Tarea::find($id);
-        $tarea -> nombre = $request->nombre;
-        $tarea -> telefono = $request->telefono;
-        $tarea -> descripcion = $request->descripcion;
-        $tarea -> email = $request->email;
-        $tarea -> direccion = $request->direccion;
-        $tarea -> estado = $request->estado;
-        $tarea -> f_crea = date('Y-m-d', strtotime($request->f_creacion));
-        if($request->f_realizacion==null){
-            $tarea -> f_rea = null;
-        }else{
-            $tarea -> f_rea = date('Y-m-d', strtotime($request->f_realizacion));
+        $tarea->nombre = $request->nombre;
+        $tarea->telefono = $request->telefono;
+        $tarea->descripcion = $request->descripcion;
+        $tarea->email = $request->email;
+        $tarea->direccion = $request->direccion;
+        $tarea->estado = $request->estado;
+        $tarea->f_crea = date('Y-m-d', strtotime($request->f_creacion));
+        if ($request->f_realizacion == null) {
+            $tarea->f_rea = null;
+        } else {
+            $tarea->f_rea = date('Y-m-d', strtotime($request->f_realizacion));
         }
 
-        $tarea -> anot_anteriores = $request->anot_anteriores;
-        $tarea -> anot_posteriores = $request->anot_posteriores;
-        $tarea -> fichero = $request->fichero;
-        $tarea -> cliente_id = $request->cliente;
-        $tarea -> empleado_id = $request->empleado;
-        $tarea -> save();
+        $tarea->anot_anteriores = $request->anot_anteriores;
+        $tarea->anot_posteriores = $request->anot_posteriores;
+        $tarea->fichero = $request->fichero;
+        $tarea->cliente_id = $request->cliente;
+        $tarea->empleado_id = $request->empleado;
+        $tarea->save();
 
         return redirect()->route('tareas.index');
     }

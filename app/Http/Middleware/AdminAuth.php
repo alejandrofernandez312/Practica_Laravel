@@ -16,14 +16,13 @@ class AdminAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->check()){
-            if(auth()->user()->esAdministrador()){
+        if (auth()->check()) {
+            if (auth()->user()->esAdministrador()) {
                 return $next($request);
             }
             return redirect()->to('denegado');
         }
         return redirect()->to('/');
-
 
     }
 }

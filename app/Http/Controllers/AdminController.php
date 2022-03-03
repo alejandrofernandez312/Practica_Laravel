@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class AdminController extends Controller
 {
     //
-    public function index(){
+    /**
+     * index
+     *
+     * @return void
+     */
+    public function index()
+    {
         return redirect()->route('tareas.index');
     }
 }

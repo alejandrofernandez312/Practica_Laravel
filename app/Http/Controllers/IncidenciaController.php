@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Tarea;
 use App\Models\Cliente;
+use App\Models\Tarea;
+use Illuminate\Http\Request;
 
 class IncidenciaController extends Controller
 {
@@ -37,43 +37,38 @@ class IncidenciaController extends Controller
      */
     public function store(Request $request)
     {
-         //FILTRADO DE TAREA
-         $request->validate([
+        //FILTRADO DE TAREA
+        $request->validate([
             'nombre' => 'required|min:3|max:255',
             'telefono' => 'required',
             'cif' => 'required',
             'descripcion' => 'required',
             'email' => 'required|email',
-            'direccion' => 'required'
+            'direccion' => 'required',
         ]);
 
-        $checktlf=Cliente::where('telefono',$request->telefono)->get();
-        $checkcif=Cliente::where('cif',$request->cif)->get();
-        if($checktlf->count()==1&&$checkcif->count()==1){
+        $checktlf = Cliente::where('telefono', $request->telefono)->get();
+        $checkcif = Cliente::where('cif', $request->cif)->get();
+        if ($checktlf->count() == 1 && $checkcif->count() == 1) {
             $id = $checkcif[0]->cliente_id;
 
-        //Formulario Tareas cliente;
-        $tarea = new Tarea;
-        $tarea->nombre = $request->nombre;
-        $tarea->cliente_id = $id;
-        $tarea->telefono = $request->telefono;
-        $tarea->email = $request->email;
-        $tarea->estado = "P";
-        $tarea->f_crea = date("Y-m-d");
-        $tarea->direccion = $request->direccion;
-        $tarea->descripcion = $request->descripcion;
-        $tarea->save();
-        return redirect()->route('incidencia.index')
-            ->with('success','Se ha creado su incidencia');
-        }else{
+            //Formulario Tareas cliente;
+            $tarea = new Tarea;
+            $tarea->nombre = $request->nombre;
+            $tarea->cliente_id = $id;
+            $tarea->telefono = $request->telefono;
+            $tarea->email = $request->email;
+            $tarea->estado = "P";
+            $tarea->f_crea = date("Y-m-d");
+            $tarea->direccion = $request->direccion;
+            $tarea->descripcion = $request->descripcion;
+            $tarea->save();
+            return redirect()->route('incidencia.index')
+                ->with('success', 'Se ha creado su incidencia');
+        } else {
             return back()->withInput($request->all())
-            ->with('error','El dni y el teléfono no coinciden');
+                ->with('error', 'El dni y el teléfono no coinciden');
         }
-
-
-
-
-
 
     }
 

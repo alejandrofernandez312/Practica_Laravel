@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Empleado;
 use App\Models\Tarea;
+use Illuminate\Http\Request;
 
 class EmpleadoCRUDController extends Controller
 {
@@ -17,7 +17,7 @@ class EmpleadoCRUDController extends Controller
     {
         //
         return view('Empleado.empleados', [
-            'empleados' => Empleado::paginate(4)
+            'empleados' => Empleado::paginate(4),
         ]);
     }
 
@@ -30,7 +30,7 @@ class EmpleadoCRUDController extends Controller
     {
         //
         return view('Empleado.añadirEmpleado', [
-            'empleados' => Empleado::all()
+            'empleados' => Empleado::all(),
         ]);
     }
 
@@ -49,21 +49,19 @@ class EmpleadoCRUDController extends Controller
             'dni' => 'required|unique:empleado',
             'email' => 'required|email|unique:empleado',
             'telefono' => 'required|numeric',
-            'direccion' => 'required'
+            'direccion' => 'required',
         ]);
 
-
         $empleado = new Empleado;
-        $empleado -> nombre = $request->nombre;
-        $empleado -> password = $request->password;
-        $empleado -> dni = $request->dni;
-        $empleado -> email = $request->email;
-        $empleado -> telefono = $request->telefono;
-        $empleado -> direccion = $request->direccion;
-        $empleado -> f_alta = Date('Y-m-d');
-        $empleado -> tipo = $request->tipo;
-        $empleado -> save();
-
+        $empleado->nombre = $request->nombre;
+        $empleado->password = $request->password;
+        $empleado->dni = $request->dni;
+        $empleado->email = $request->email;
+        $empleado->telefono = $request->telefono;
+        $empleado->direccion = $request->direccion;
+        $empleado->f_alta = Date('Y-m-d');
+        $empleado->tipo = $request->tipo;
+        $empleado->save();
 
         return redirect()->route('empleados.index');
     }
@@ -79,7 +77,7 @@ class EmpleadoCRUDController extends Controller
         //
         $empleado = Empleado::find($id);
         return view('Empleado.verificarBorrarEmpleado', [
-            'empleado' => $empleado
+            'empleado' => $empleado,
         ]);
     }
 
@@ -93,7 +91,7 @@ class EmpleadoCRUDController extends Controller
     {
         //
         return view('Empleado.modificarEmpleado', [
-            'empleado' => Empleado::find($id)
+            'empleado' => Empleado::find($id),
         ]);
     }
 
@@ -113,35 +111,33 @@ class EmpleadoCRUDController extends Controller
             'dni' => 'required',
             'email' => 'required|email',
             'telefono' => 'required|numeric',
-            'direccion' => 'required'
+            'direccion' => 'required',
         ]);
 
         $empleadoExiste = Empleado::where('email', $request->email)->first();
-        if($empleadoExiste!=null){
-            if($id!=$empleadoExiste->empleado_id){
-                return redirect()->back()->withInput($request->all())->with('error','Ese correo ya está asociado a un cliente');
+        if ($empleadoExiste != null) {
+            if ($id != $empleadoExiste->empleado_id) {
+                return redirect()->back()->withInput($request->all())->with('error', 'Ese correo ya está asociado a un cliente');
             }
         }
 
         $empleadoExiste = Empleado::where('dni', $request->dni)->first();
-        if($empleadoExiste!=null){
-            if($id!=$empleadoExiste->empleado_id){
-                return redirect()->back()->withInput($request->all())->with('error','Ese DNI ya está asociado a un cliente');
+        if ($empleadoExiste != null) {
+            if ($id != $empleadoExiste->empleado_id) {
+                return redirect()->back()->withInput($request->all())->with('error', 'Ese DNI ya está asociado a un cliente');
             }
         }
 
-
         $empleado = Empleado::find($id);
-        $empleado -> nombre = $request->nombre;
-        $empleado -> password = $request->password;
-        $empleado -> dni = $request->dni;
-        $empleado -> email = $request->email;
-        $empleado -> telefono = $request->telefono;
-        $empleado -> direccion = $request->direccion;
-        $empleado -> f_alta = date('Y-m-d', strtotime($request->f_alta));
-        $empleado -> tipo = $request->tipo;
-        $empleado -> save();
-
+        $empleado->nombre = $request->nombre;
+        $empleado->password = $request->password;
+        $empleado->dni = $request->dni;
+        $empleado->email = $request->email;
+        $empleado->telefono = $request->telefono;
+        $empleado->direccion = $request->direccion;
+        $empleado->f_alta = date('Y-m-d', strtotime($request->f_alta));
+        $empleado->tipo = $request->tipo;
+        $empleado->save();
 
         return redirect()->route('empleados.index');
     }
@@ -156,7 +152,7 @@ class EmpleadoCRUDController extends Controller
     {
         //
         $tareas = Tarea::where('empleado_id', $id)->get();
-        foreach($tareas as $tarea){
+        foreach ($tareas as $tarea) {
             $tarea->delete();
         }
 

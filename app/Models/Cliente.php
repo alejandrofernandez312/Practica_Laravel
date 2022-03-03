@@ -11,6 +11,11 @@ class Cliente extends Model
     protected $table = "cliente";
     protected $primaryKey = "cliente_id";
 
+    /**
+     * Asocia el país con el cliente
+     *
+     * @return void
+     */
     public function Pais()
     {
         return $this->belongsTo(Pais::class);

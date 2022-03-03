@@ -12,7 +12,8 @@
                     <div class="form-group">
                         <label for="nombre" class="col-sm-2">Nombre</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Enter Nombre">
+                            <input type="text" class="form-control" id="nombre" name="nombre"
+                                placeholder="Enter Nombre">
                             <span id="nombreError" class="alert-message"></span>
                         </div>
                     </div>
@@ -21,7 +22,8 @@
                     <div class="form-group">
                         <label for="password" class="col-sm-2">Password</label>
                         <div class="col-sm-12">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
+                            <input type="password" class="form-control" id="password" name="password"
+                                placeholder="Enter Password">
                             <span id="passwordError" class="alert-message"></span>
                         </div>
                     </div>
@@ -48,7 +50,8 @@
                     <div class="form-group">
                         <label for="telefono" class="col-sm-2">Teléfono</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Enter telefono">
+                            <input type="text" class="form-control" id="telefono" name="telefono"
+                                placeholder="Enter telefono">
                             <span id="telefonoError" class="alert-message"></span>
                         </div>
                     </div>
@@ -57,7 +60,8 @@
                     <div class="form-group">
                         <label for="direccion" class="col-sm-2">Dirección</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Enter dirección">
+                            <input type="text" class="form-control" id="direccion" name="direccion"
+                                placeholder="Enter dirección">
                             <span id="direccionError" class="alert-message"></span>
                         </div>
                     </div>

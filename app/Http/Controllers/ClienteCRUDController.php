@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Cliente;
-use App\Models\Pais;
 use App\Models\Cuota;
-
+use App\Models\Pais;
+use Illuminate\Http\Request;
 
 class ClienteCRUDController extends Controller
 {
@@ -19,7 +18,7 @@ class ClienteCRUDController extends Controller
     {
         //
         return view('Cliente.clientes', [
-            'clientes' => Cliente::paginate(4)
+            'clientes' => Cliente::paginate(4),
         ]);
     }
 
@@ -32,7 +31,7 @@ class ClienteCRUDController extends Controller
     {
         //
         return view('Cliente.añadirCliente', [
-            'paises' => Pais::all()
+            'paises' => Pais::all(),
         ]);
     }
 
@@ -51,25 +50,24 @@ class ClienteCRUDController extends Controller
             'telefono' => 'required|numeric',
             'email' => 'required|email',
             'cuenta_corriente' => 'required',
-            'importe' => 'required|numeric'
+            'importe' => 'required|numeric',
         ]);
 
         $clienteExiste = Cliente::where('email', $request->email)->first();
-        if($clienteExiste!=null){
-                return redirect()->back()->withInput($request->all())->with('error','Ese correo ya está asociado a un cliente');
+        if ($clienteExiste != null) {
+            return redirect()->back()->withInput($request->all())->with('error', 'Ese correo ya está asociado a un cliente');
         }
 
-
         $cliente = new Cliente;
-        $cliente -> nombre = $request->nombre;
-        $cliente -> cif = $request->cif;
-        $cliente -> telefono = $request->telefono;
-        $cliente -> email = $request->email;
-        $cliente -> cuenta_corriente = $request->cuenta_corriente;
-        $cliente -> moneda = $request->moneda;
-        $cliente -> importe = $request->importe;
-        $cliente -> pais_id = $request->pais;
-        $cliente -> save();
+        $cliente->nombre = $request->nombre;
+        $cliente->cif = $request->cif;
+        $cliente->telefono = $request->telefono;
+        $cliente->email = $request->email;
+        $cliente->cuenta_corriente = $request->cuenta_corriente;
+        $cliente->moneda = $request->moneda;
+        $cliente->importe = $request->importe;
+        $cliente->pais_id = $request->pais;
+        $cliente->save();
 
         return redirect()->route('clientes.index');
     }
@@ -85,7 +83,7 @@ class ClienteCRUDController extends Controller
         //
         $cliente = Cliente::find($id);
         return view('Cliente.verificarBorrarCliente', [
-            'cliente' => $cliente
+            'cliente' => $cliente,
         ]);
     }
 
@@ -100,7 +98,7 @@ class ClienteCRUDController extends Controller
         //
         return view('Cliente.modificarCliente', [
             'cliente' => Cliente::find($id),
-            'paises' => Pais::all()
+            'paises' => Pais::all(),
         ]);
     }
 
@@ -120,28 +118,26 @@ class ClienteCRUDController extends Controller
             'telefono' => 'required|numeric',
             'email' => 'required|email',
             'cuenta_corriente' => 'required',
-            'importe' => 'required|numeric'
+            'importe' => 'required|numeric',
         ]);
 
         $clienteExiste = Cliente::where('email', $request->email)->first();
-        if($clienteExiste!=null){
-            if($id!=$clienteExiste->cliente_id){
-                return redirect()->back()->withInput($request->all())->with('error','Ese correo ya está asociado a un cliente');
+        if ($clienteExiste != null) {
+            if ($id != $clienteExiste->cliente_id) {
+                return redirect()->back()->withInput($request->all())->with('error', 'Ese correo ya está asociado a un cliente');
             }
         }
 
-
-
         $cliente = Cliente::find($id);
-        $cliente -> nombre = $request->nombre;
-        $cliente -> cif = $request->cif;
-        $cliente -> telefono = $request->telefono;
-        $cliente -> email = $request->email;
-        $cliente -> cuenta_corriente = $request->cuenta_corriente;
-        $cliente -> moneda = $request->moneda;
-        $cliente -> importe = $request->importe;
-        $cliente -> pais_id = $request->pais;
-        $cliente -> save();
+        $cliente->nombre = $request->nombre;
+        $cliente->cif = $request->cif;
+        $cliente->telefono = $request->telefono;
+        $cliente->email = $request->email;
+        $cliente->cuenta_corriente = $request->cuenta_corriente;
+        $cliente->moneda = $request->moneda;
+        $cliente->importe = $request->importe;
+        $cliente->pais_id = $request->pais;
+        $cliente->save();
 
         return redirect()->route('clientes.index');
     }
@@ -156,7 +152,7 @@ class ClienteCRUDController extends Controller
     {
         //
         $cuotas = Cuota::where('cliente_id', $id)->get();
-        foreach($cuotas as $cuota){
+        foreach ($cuotas as $cuota) {
             $cuota->delete();
         }
 

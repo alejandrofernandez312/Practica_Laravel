@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Empleado;
+use Illuminate\Http\Request;
 
 class EmpleadosJSController extends Controller
 {
@@ -18,7 +18,7 @@ class EmpleadosJSController extends Controller
         $empleados = Empleado::all();
 
         return view('JS_Empleados.empleadosJS', [
-            'empleados' => $empleados
+            'empleados' => $empleados,
         ]);
     }
 
@@ -46,9 +46,8 @@ class EmpleadosJSController extends Controller
             'dni' => 'required',
             'email' => 'required|email',
             'telefono' => 'required|numeric',
-            'direccion' => 'required'
+            'direccion' => 'required',
         ]);
-
 
         $empleado = Empleado::updateOrCreate(['empleado_id' => $request->empleado_id], [
             'nombre' => $request->nombre,
@@ -58,7 +57,7 @@ class EmpleadosJSController extends Controller
             'telefono' => $request->telefono,
             'direccion' => $request->direccion,
             'f_alta' => Date('Y-m-d'),
-            'tipo' => $request->tipo
+            'tipo' => $request->tipo,
         ]);
 
         return response()->json(['code' => 200, 'message' => 'Empleado Created successfully', 'data' => $empleado], 200);

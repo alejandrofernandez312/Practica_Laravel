@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
 use App\Models\Empleado;
+use Illuminate\Http\Request;
 
 class MiPerfilController extends Controller
 {
@@ -74,13 +73,13 @@ class MiPerfilController extends Controller
     {
         //
         $request->validate([
-            'password' => 'required|min:4'
+            'password' => 'required|min:4',
         ]);
 
         $empleadoExiste = Empleado::where('email', $request->email)->first();
-        if($empleadoExiste!=null){
-            if($id!=$empleadoExiste->empleado_id){
-                return redirect()->back()->withInput($request->all())->with('error','Ese correo ya está asociado a un empleado');
+        if ($empleadoExiste != null) {
+            if ($id != $empleadoExiste->empleado_id) {
+                return redirect()->back()->withInput($request->all())->with('error', 'Ese correo ya está asociado a un empleado');
             }
         }
 
@@ -89,12 +88,11 @@ class MiPerfilController extends Controller
         $empleado->password = bcrypt($request->password);
         $empleado->save();
 
-        if(auth()->user()->tipo=='A'){
+        if (auth()->user()->tipo == 'A') {
             return redirect()->route('tareas.index');
-        }else{
+        } else {
             return redirect()->route('operario.index');
         }
-
 
     }
 

@@ -30,7 +30,7 @@
                     $('#email').val(response.email);
                     $('#telefono').val(response.telefono);
                     $('#direccion').val(response.direccion);
-                    $('input:radio[name="tipo"][value='+response.tipo+']').prop('checked',true);
+                    $('input:radio[name="tipo"][value=' + response.tipo + ']').prop('checked', true);
                     $('#empleado-modal').modal('show');
                 }
             }
@@ -69,14 +69,18 @@
                         $("#row_" + id + " td:nth-child(7)").html(response.data.f_alta);
                         $("#row_" + id + " td:nth-child(8)").html(response.data.tipo);
                     } else {
-                        $('table tbody').prepend('<tr id="row_' + response.data.empleado_id + '"><td>' + response
-                            .data.empleado_id + '</td><td>' + response.data.nombre + '</td><td>' + response.data.dni + '</td><td>' + response.data
-                            .email +'</td><td>'+ response.data.telefono +'</td><td>'+ response.data.direccion +'</td><td>'+ response.data.f_alta +'</td><td>'+ response.data.tipo + '</td><td><a href="javascript:void(0)" data-id="' + response
+                        $('table tbody').prepend('<tr id="row_' + response.data.empleado_id + '"><td>' +
+                            response
+                            .data.empleado_id + '</td><td>' + response.data.nombre + '</td><td>' +
+                            response.data.dni + '</td><td>' + response.data
+                            .email + '</td><td>' + response.data.telefono + '</td><td>' + response.data
+                            .direccion + '</td><td>' + response.data.f_alta + '</td><td>' + response
+                            .data.tipo + '</td><td><a href="javascript:void(0)" data-id="' + response
                             .data.empleado_id +
                             '" onclick="editEmpleado(event.target)" class="btn btn-info">Edit</a><a href="javascript:void(0)" data-id="' +
                             response.data.id +
                             '" class="btn btn-danger" onclick="deleteEmpleado(event.target)">Delete</a></td></tr>'
-                            );
+                        );
                     }
                     $('#title').val('');
                     $('#description').val('');
@@ -108,4 +112,3 @@
         });
     }
 </script>
-

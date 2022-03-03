@@ -3,11 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class Empleado extends Authenticatable
 {
@@ -18,7 +15,7 @@ class Empleado extends Authenticatable
     protected $primaryKey = "empleado_id";
     protected $cargos = [
         "A" => "Administrador",
-        "O" => "Operario"
+        "O" => "Operario",
     ];
 
     protected $fillable = [
@@ -35,25 +32,38 @@ class Empleado extends Authenticatable
         'direccion',
     ];
 
+    /**
+     * Devuelve el tipo si existe, si no devuelve Sin asignar
+     *
+     * @return void
+     */
     public function descripcionTipo()
     {
-        if(isset($this->cargos[$this->tipo])){
+        if (isset($this->cargos[$this->tipo])) {
             return $this->cargos[$this->tipo];
-        }else {
+        } else {
             return "Sin asignar";
         }
 
     }
 
-    public function esAdministrador() :bool {
-        // $administradores=['A', 'C', 'J', 'Q'];
-        // return in_array($this->tipo, $administradores);
-        return $this->tipo=='A';
+    /**
+     * Devuelve true si es administrador
+     *
+     * @return bool
+     */
+    public function esAdministrador(): bool
+    {
+        return $this->tipo == 'A';
     }
 
-    public function esOperario() :bool {
-        // $administradores=['A', 'C', 'J', 'Q'];
-        // return in_array($this->tipo, $administradores);
-        return $this->tipo=='O';
+    /**
+     * Devuelve true si es administrador
+     *
+     * @return bool
+     */
+    public function esOperario(): bool
+    {
+        return $this->tipo == 'O';
     }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Tarea;
 use App\Models\Cliente;
 use App\Models\Empleado;
+use App\Models\Tarea;
+use Illuminate\Http\Request;
 
 class TareasNoAsignadasController extends Controller
 {
@@ -69,7 +69,7 @@ class TareasNoAsignadasController extends Controller
         return view('TareaNA.modificarTareaNA', [
             'tarea' => Tarea::find($id),
             'clientes' => Cliente::all(),
-            'empleados'=> Empleado::all(),
+            'empleados' => Empleado::all(),
         ]);
     }
 
@@ -88,25 +88,24 @@ class TareasNoAsignadasController extends Controller
             'telefono' => 'required',
             'descripcion' => 'required',
             'email' => 'required|email', //Preguntar lo de unique:tarea
-            'direccion' => 'required'
+            'direccion' => 'required',
         ]);
 
-
         $tarea = Tarea::find($id);
-        $tarea -> nombre = $request->nombre;
-        $tarea -> telefono = $request->telefono;
-        $tarea -> descripcion = $request->descripcion;
-        $tarea -> email = $request->email;
-        $tarea -> direccion = $request->direccion;
-        $tarea -> estado = $request->estado;
-        $tarea -> f_crea = date('Y-m-d', strtotime($request->f_creacion));
-        $tarea -> f_rea = date('Y-m-d', strtotime($request->f_realizacion));
-        $tarea -> anot_anteriores = $request->anot_anteriores;
-        $tarea -> anot_posteriores = $request->anot_posteriores;
-        $tarea -> fichero = $request->fichero;
-        $tarea -> cliente_id = $request->cliente;
-        $tarea -> empleado_id = $request->empleado;
-        $tarea -> save();
+        $tarea->nombre = $request->nombre;
+        $tarea->telefono = $request->telefono;
+        $tarea->descripcion = $request->descripcion;
+        $tarea->email = $request->email;
+        $tarea->direccion = $request->direccion;
+        $tarea->estado = $request->estado;
+        $tarea->f_crea = date('Y-m-d', strtotime($request->f_creacion));
+        $tarea->f_rea = date('Y-m-d', strtotime($request->f_realizacion));
+        $tarea->anot_anteriores = $request->anot_anteriores;
+        $tarea->anot_posteriores = $request->anot_posteriores;
+        $tarea->fichero = $request->fichero;
+        $tarea->cliente_id = $request->cliente;
+        $tarea->empleado_id = $request->empleado;
+        $tarea->save();
 
         return redirect()->route('tareasNoAsignadas.index');
     }
