@@ -64,11 +64,15 @@ class CuotaCRUDController extends Controller
 
         $json = file_get_contents('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/eur.json');
 
-        // $data = json_decode($json,true);
-        // $precio = round($data['eur'][strtolower($cuota->cliente->moneda)]* $cuota->importe,2);
+        $json = file_get_contents('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/eur.json');
 
-        // $email = new MailController;
-        // $email->enviarCorreoConPDF($cuota->cliente->email, $cuota);
+            $data = json_decode($json,true);
+            $precio = round($data['eur'][strtolower($cuota->cliente->moneda)]* $cuota->importe,2);
+
+            //Enviar correo
+
+            $email = new MailController;
+            $email->enviarCuotaExcepcionalPDF($cuota->cliente->email, $cuota, $precio);
 
         return redirect()->route('cuotas.index');
     }
@@ -150,10 +154,15 @@ class CuotaCRUDController extends Controller
             $cuota->cliente_id = $cliente->cliente_id;
             $cuota->save();
 
+            $json = file_get_contents('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/eur.json');
+
+            $data = json_decode($json,true);
+            $precio = round($data['eur'][strtolower($cuota->cliente->moneda)]* $cuota->importe,2);
+
             //Enviar correo
-        //    MailController::enviarCorreo($cliente->email);
-            // $email = new MailController;
-            // $email->enviarCorreoConPDF($cliente->email, $cuota);
+
+            $email = new MailController;
+            $email->enviarCorreoConPDF($cliente->email, $cuota, $precio);
         }
 
         return redirect()->route('cuotas.index');
